@@ -31,5 +31,7 @@ NuGet Packages:
   Luego se debe agregar una migracion desde el NugetTerminal estando posicionado en la capa DataAccess: Add-migration nuevamigracion
   y por ultimo correr un update de la base de datos para que esta se cree: update-database
   
+  Finalmente importar el excel con el mock de datos a la bd local.
+  
   Luego si su version de visual studio no le indica que deba instalarse ningun componente adicional, solo queda correr la app y se le abrira una venta de navegador
   con Swagger donde estaran expuestos los endpoints y podran probarse.
