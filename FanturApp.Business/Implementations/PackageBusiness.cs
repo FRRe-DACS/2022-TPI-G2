@@ -1,21 +1,21 @@
-﻿using FanturApp.Business.Interfaces;
+﻿using AutoMapper;
+using FanturApp.Business.Interfaces;
+using FanturApp.CrossCutting.Dtos;
+using FanturApp.CrossCutting.Models;
 using FanturApp.DataAccess.Interfaces;
-using FanturApp.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FanturApp.Business.Implementations
 {
-        public class PackageBusiness : IPackageBusiness
+    public class PackageBusiness : IPackageBusiness
         {
             private readonly IPackageDataAccess _packageDataAccess;
-            public PackageBusiness(IPackageDataAccess packageDataAccess)
-            {
-                _packageDataAccess = packageDataAccess;
-            }
+        private readonly IMapper _mapper;
+
+        public PackageBusiness(IPackageDataAccess packageDataAccess, IMapper mapper)
+        {
+            _packageDataAccess = packageDataAccess;
+            _mapper = mapper;
+        }
 
         public bool CreatePackage(List<int> serviceid, Package package)
         {
@@ -37,12 +37,15 @@ namespace FanturApp.Business.Implementations
                 return _packageDataAccess.GetPackages();
             }
 
-             public ICollection<Service> GetServicesByPackage(int id)
+     
+
+        public ICollection<Service> GetServicesByPackage(int id)
             {
                 return _packageDataAccess.GetServicesByPackage(id);
             }
 
-            public bool PackageExists(int id)
+
+        public bool PackageExists(int id)
             {
                 return _packageDataAccess.PackageExists(id);
             }

@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using FanturApp.Business.Interfaces;
-using FanturApp.Repository.Dtos;
-using FanturApp.Repository.Models;
-using Microsoft.AspNetCore.Http;
+using FanturApp.CrossCutting.Dtos;
+using FanturApp.CrossCutting.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
-namespace FanturApp.Services.Controllers
+namespace FanturApp.Interface.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -19,6 +20,66 @@ namespace FanturApp.Services.Controllers
             _userBusiness = userBusiness;
             _mapper = mapper;
         }
+
+        // codigo roba2
+
+        [HttpGet("Admins")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminsEndpoint()
+        {
+            var currentUser = GetCurrentUser();
+
+            return Ok($"Hi {currentUser.FirstName}, you are an {currentUser.Role}");
+        }
+
+
+        [HttpGet("Customers")]
+        [Authorize(Roles = "Customer")]
+        public IActionResult SellersEndpoint()
+        {
+            var currentUser = GetCurrentUser();
+
+            return Ok($"Hi {currentUser.FirstName}, you are a {currentUser.Role}");
+        }
+
+        [HttpGet("AdminsAndSellers")]
+        [Authorize(Roles = "Admin,Customer")]
+        public IActionResult AdminsAndSellersEndpoint()
+        {
+            var currentUser = GetCurrentUser();
+
+            return Ok($"Hi {currentUser.FirstName}, you are an {currentUser.Role}");
+        }
+
+        [HttpGet("Public")]
+        public IActionResult Public()
+        {
+            return Ok("Hi, you're on public property");
+        }
+
+        private User GetCurrentUser()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+
+                return new User
+                {
+                    UserName = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value,
+                    Email = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Email)?.Value,
+                    FirstName = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.GivenName)?.Value,
+                    LastName = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Surname)?.Value,
+                    Role = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Role)?.Value
+                };
+            }
+            return null;
+        }
+
+
+
+        // codigo roba2
 
         [HttpGet()]
         [ProducesResponseType(200, Type = typeof(IEnumerable<User>))]
@@ -96,7 +157,7 @@ namespace FanturApp.Services.Controllers
                 .Where(u => u.UserName.Trim().ToUpper() == userCreate.UserName.Trim().ToUpper())
                 .FirstOrDefault();
 
-            if(user != null)
+            if (user != null)
             {
                 ModelState.AddModelError("", "Username taken");
                 return StatusCode(422, ModelState);

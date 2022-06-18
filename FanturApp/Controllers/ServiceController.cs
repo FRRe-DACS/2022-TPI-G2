@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using FanturApp.Business.Interfaces;
-using FanturApp.Repository.Dtos;
-using FanturApp.Repository.Models;
-using Microsoft.AspNetCore.Http;
+using FanturApp.CrossCutting.Dtos;
+using FanturApp.CrossCutting.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FanturApp.Services.Controllers
+namespace FanturApp.Interface.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,13 +15,13 @@ namespace FanturApp.Services.Controllers
 
         public ServiceController(IServiceBusiness serviceBusiness, IMapper mapper)
         {
-            _serviceBusiness= serviceBusiness;
+            _serviceBusiness = serviceBusiness;
             _mapper = mapper;
         }
 
         [HttpGet()]
-        [ProducesResponseType(200, Type=typeof(IEnumerable<Service>))]
-        public IActionResult GetPackages()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Service>))]
+        public IActionResult GetServices()
         {
             var services = _mapper.Map<List<ServiceDto>>(_serviceBusiness.GetServices());
 
@@ -33,10 +32,23 @@ namespace FanturApp.Services.Controllers
             return Ok(services);
         }
 
+        [HttpGet("GetServiceCategories")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<ServiceCategory>))]
+        public IActionResult GetSeviceCategories()
+        {
+            var categories = _serviceBusiness.GetServiceCategories();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+
+            return Ok(categories);
+        }
+
         [HttpGet("{serviceId}")]
         [ProducesResponseType(200, Type = typeof(Service))]
         [ProducesResponseType(400)]
-        public IActionResult GetPackage(int serviceId)
+        public IActionResult GetService(int serviceId)
         {
             if (!_serviceBusiness.ServiceExists(serviceId))
                 return NotFound();
@@ -70,7 +82,7 @@ namespace FanturApp.Services.Controllers
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateService([FromQuery] int categoryid,[FromBody] ServiceDto serviceCreate)
+        public IActionResult CreateService([FromQuery] int categoryid, [FromBody] ServiceDto serviceCreate)
         {
             if (serviceCreate == null)
                 return BadRequest(ModelState);
@@ -141,11 +153,11 @@ namespace FanturApp.Services.Controllers
         [ProducesResponseType(404)]
         public IActionResult DeleteService(int serviceId)
         {
-           
+
             if (!_serviceBusiness.ServiceExists(serviceId))
                 return NotFound();
 
-    
+
             var serviceToDelete = _serviceBusiness.GetService(serviceId);
 
             if (!ModelState.IsValid)
@@ -153,7 +165,7 @@ namespace FanturApp.Services.Controllers
                 return BadRequest(ModelState);
             }
 
-            if(_serviceBusiness.DeleteService(serviceToDelete))
+            if (_serviceBusiness.DeleteService(serviceToDelete))
             {
                 ModelState.AddModelError("", "Something went wrong deleting");
             }

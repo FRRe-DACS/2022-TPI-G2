@@ -1,11 +1,6 @@
-﻿using FanturApp.DataAccess.Context;
+﻿using FanturApp.CrossCutting.Models;
+using FanturApp.DataAccess.Context;
 using FanturApp.DataAccess.Interfaces;
-using FanturApp.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FanturApp.DataAccess.Implementations
 {
@@ -43,6 +38,11 @@ namespace FanturApp.DataAccess.Implementations
         public User GetUser(int id)
         {
             return _context.Users.SingleOrDefault(u => u.Id == id);
+        }
+
+        public User GetUserByUsernameAndPassword(string username, string password)
+        {
+            return _context.Users.FirstOrDefault(o => o.UserName.ToLower() == username.ToLower() && o.PassWord == password);
         }
 
         public ICollection<User> GetUsers()

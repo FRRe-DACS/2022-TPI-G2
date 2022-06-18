@@ -1,12 +1,7 @@
-﻿using FanturApp.DataAccess.Context;
+﻿using FanturApp.CrossCutting.Models;
+using FanturApp.DataAccess.Context;
 using FanturApp.DataAccess.Interfaces;
-using FanturApp.Repository.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FanturApp.DataAccess.Implementations
 {
@@ -53,37 +48,68 @@ namespace FanturApp.DataAccess.Implementations
             return _context.Reservations.Any(r => r.Id == id);
         }
 
-        public bool CreateReservation(int passengerid, List<int> packageid, Reservation reservation)
+        public bool CreateReservation(List<int> passengerid, int packageid, Reservation reservation)
         {
-            
-            var passengerReservationEntity = _context.Passengers.SingleOrDefault(ps => ps.Id == passengerid);
 
-            var passengerReservation = new PassengerReservation
+            var packageReservationEntity = _context.Packages.SingleOrDefault(ps => ps.Id == packageid);
+
+            var packageReservation = new PackageReservation
             {
-                Passenger = passengerReservationEntity,
+                Package = packageReservationEntity,
                 Reservation = reservation,
             };
 
-            _context.Add(passengerReservation);
+            _context.Add(packageReservation);
 
-            foreach (var pid in packageid)
+            foreach (var pid in passengerid)
             {
 
 
-                var packageReservationEntity = _context.Packages.SingleOrDefault(c => c.Id == pid);
-                var packageReservation = new PackageReservation
+                var passengerReservationEntity = _context.Passengers.SingleOrDefault(c => c.Id == pid);
+                var passengerReservation = new PassengerReservation
                 {
-                    Package = packageReservationEntity,
+                    Passenger = passengerReservationEntity,
                     Reservation = reservation,
                 };
 
-                _context.Add(packageReservation);
+                _context.Add(passengerReservation);
 
             }
 
             _context.Add(reservation);
 
             return Save();
+
+
+
+            //var passengerReservationEntity = _context.Passengers.SingleOrDefault(ps => ps.Id == passengerid);
+
+            //var passengerReservation = new PassengerReservation
+            //{
+            //    Passenger = passengerReservationEntity,
+            //    Reservation = reservation,
+            //};
+
+            //_context.Add(passengerReservation);
+
+            //foreach (var pid in packageid)
+            //{
+
+
+            //    var packageReservationEntity = _context.Packages.SingleOrDefault(c => c.Id == pid);
+            //    var packageReservation = new PackageReservation
+            //    {
+            //        Package = packageReservationEntity,
+            //        Reservation = reservation,
+            //    };
+
+            //    _context.Add(packageReservation);
+
+            //}
+
+            //_context.Add(reservation);
+
+            //return Save();
 
         }
 

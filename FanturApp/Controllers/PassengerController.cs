@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using FanturApp.Business.Interfaces;
-using FanturApp.Repository.Dtos;
-using FanturApp.Repository.Models;
-using Microsoft.AspNetCore.Http;
+using FanturApp.CrossCutting.Dtos;
+using FanturApp.CrossCutting.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FanturApp.Services.Controllers
+namespace FanturApp.Interface.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,7 +14,7 @@ namespace FanturApp.Services.Controllers
         private readonly IUserBusiness _userBusiness;
         private readonly IMapper _mapper;
 
-        public PassengerController(IPassengerBusiness passengerBusiness,IUserBusiness userBusiness, IMapper mapper)
+        public PassengerController(IPassengerBusiness passengerBusiness, IUserBusiness userBusiness, IMapper mapper)
         {
             _passengerBusiness = passengerBusiness;
             _userBusiness = userBusiness;
@@ -79,7 +78,7 @@ namespace FanturApp.Services.Controllers
                 return BadRequest(ModelState);
 
             var passenger = _passengerBusiness.GetPassengers()
-                .Where(u => u.Dni == passengerCreate.Dni )
+                .Where(u => u.Dni == passengerCreate.Dni)
                 .FirstOrDefault();
 
             if (passenger != null)

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FanturApp.Repository.Models
+﻿namespace FanturApp.CrossCutting.Models
 {
     public class User
     {
@@ -12,6 +6,8 @@ namespace FanturApp.Repository.Models
         public string UserName { get; set; }
         public string PassWord { get; set; }
         public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName  { get; set; }
         public string Role { get; set; }
         public string PhoneNumber { get; set; }
         public ICollection<Passenger> Passengers { get; set; }

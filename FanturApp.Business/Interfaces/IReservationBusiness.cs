@@ -1,9 +1,4 @@
-﻿using FanturApp.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FanturApp.CrossCutting.Models;
 
 namespace FanturApp.Business.Interfaces
 {
@@ -17,7 +12,7 @@ namespace FanturApp.Business.Interfaces
         public User GetUserByReservation(int id);
         public ICollection<Reservation> GetReservationsByStatus(string status);
         //post
-        bool CreateReservation(int passengerid, List<int> packageid, Reservation reservation);
+        bool CreateReservation(List<int> passengerid, int packageid, Reservation reservation);
         bool Save();
         //update
 

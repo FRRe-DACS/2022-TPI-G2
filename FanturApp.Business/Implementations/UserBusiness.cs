@@ -1,11 +1,6 @@
 ﻿using FanturApp.Business.Interfaces;
+using FanturApp.CrossCutting.Models;
 using FanturApp.DataAccess.Interfaces;
-using FanturApp.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FanturApp.Business.Implementations
 {
@@ -41,6 +36,11 @@ namespace FanturApp.Business.Implementations
         public User GetUser(int id)
         {
             return _userDataAccess.GetUser(id);
+        }
+
+        public User GetUserByUsernameAndPassword(string username, string password)
+        {
+            return _userDataAccess.GetUserByUsernameAndPassword(username,password);
         }
 
         public ICollection<User> GetUsers()

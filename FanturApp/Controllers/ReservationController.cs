@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using FanturApp.Business.Interfaces;
-using FanturApp.Repository.Dtos;
-using FanturApp.Repository.Models;
-using Microsoft.AspNetCore.Http;
+using FanturApp.CrossCutting.Dtos;
+using FanturApp.CrossCutting.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FanturApp.Services.Controllers
+namespace FanturApp.Interface.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,7 +14,7 @@ namespace FanturApp.Services.Controllers
         private readonly IUserBusiness _userBusiness;
         private readonly IMapper _mapper;
 
-        public ReservationController(IReservationBusiness reservationBusiness,IUserBusiness userbusiness, IMapper mapper)
+        public ReservationController(IReservationBusiness reservationBusiness, IUserBusiness userbusiness, IMapper mapper)
         {
             _reservationBusiness = reservationBusiness;
             _userBusiness = userbusiness;
@@ -117,7 +116,7 @@ namespace FanturApp.Services.Controllers
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateReservation([FromQuery] int userid,[FromQuery] List<int> packageid, [FromQuery] int passengerid, [FromBody] ReservationDto reservationCreate)
+        public IActionResult CreateReservation([FromQuery] int userid, [FromQuery] int packageid, [FromQuery] List<int> passengerid, [FromBody] ReservationDto reservationCreate)
         {
             if (reservationCreate == null)
                 return BadRequest(ModelState);
@@ -131,7 +130,7 @@ namespace FanturApp.Services.Controllers
 
 
 
-            if (!_reservationBusiness.CreateReservation(passengerid, packageid,reservationMap))
+            if (!_reservationBusiness.CreateReservation(passengerid, packageid, reservationMap))
             {
                 ModelState.AddModelError("", "Something went wrong while savin");
                 return StatusCode(500, ModelState);
@@ -145,7 +144,7 @@ namespace FanturApp.Services.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateReservation(int reservationId,[FromQuery] int passengerId, [FromQuery] List<int> packageId, [FromBody] ReservationDto updatedReservation)
+        public IActionResult UpdateReservation(int reservationId, [FromQuery] int passengerId, [FromQuery] List<int> packageId, [FromBody] ReservationDto updatedReservation)
         {
             if (updatedReservation == null)
                 return BadRequest(ModelState);

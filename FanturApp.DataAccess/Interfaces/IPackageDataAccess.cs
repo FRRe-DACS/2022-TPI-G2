@@ -1,9 +1,4 @@
-﻿using FanturApp.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FanturApp.CrossCutting.Models;
 
 namespace FanturApp.DataAccess.Interfaces
 {
@@ -14,6 +9,7 @@ namespace FanturApp.DataAccess.Interfaces
         public Package GetPackage(string name);
         public bool PackageExists(int id);
         public ICollection<Service> GetServicesByPackage(int id);
+   
 
         //post
         bool CreatePackage(List<int> serviceid, Package package);

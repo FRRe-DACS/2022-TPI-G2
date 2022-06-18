@@ -1,9 +1,5 @@
-﻿using FanturApp.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FanturApp.CrossCutting.Dtos;
+using FanturApp.CrossCutting.Models;
 
 namespace FanturApp.Business.Interfaces
 {
@@ -14,9 +10,12 @@ namespace FanturApp.Business.Interfaces
         public Package GetPackage(string name);
         public bool PackageExists(int id);
         public ICollection<Service> GetServicesByPackage(int id);
+
+        
+
         //post
-        bool CreatePackage(List<int> serviceid, Package package);
-        bool Save();
+        public bool CreatePackage(List<int> serviceid, Package package);
+        public bool Save();
         //update
 
         public bool UpdatePackage(List<int> serviceid, Package package);

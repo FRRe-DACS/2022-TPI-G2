@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FanturApp.Repository.Helpers
+namespace FanturApp.CrossCutting.Dtos
 {
-    public class Seed
+    public class PackageServiceDto
     {
-
+        
+        public ServiceDto Service { get; set; }
     }
 }

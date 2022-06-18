@@ -1,11 +1,6 @@
 ﻿using FanturApp.Business.Interfaces;
+using FanturApp.CrossCutting.Models;
 using FanturApp.DataAccess.Interfaces;
-using FanturApp.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FanturApp.Business.Implementations
 {
@@ -18,7 +13,7 @@ namespace FanturApp.Business.Implementations
             _reservationDataAccess = reservationDataAccess;
         }
 
-        public bool CreateReservation(int passengerid, List<int> packageid, Reservation reservation)
+        public bool CreateReservation(List<int> passengerid, int packageid, Reservation reservation)
         {
             return _reservationDataAccess.CreateReservation(passengerid, packageid, reservation);
         }

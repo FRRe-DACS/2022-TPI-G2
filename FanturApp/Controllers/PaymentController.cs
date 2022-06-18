@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using FanturApp.Business.Interfaces;
-using FanturApp.Repository.Dtos;
-using FanturApp.Repository.Models;
-using Microsoft.AspNetCore.Http;
+using FanturApp.CrossCutting.Dtos;
+using FanturApp.CrossCutting.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FanturApp.Services.Controllers
+namespace FanturApp.Interface.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,7 +14,7 @@ namespace FanturApp.Services.Controllers
         private readonly IReservationBusiness _reservationBusiness;
         private readonly IMapper _mapper;
 
-        public PaymentController(IPaymentBusiness paymentBusiness,IReservationBusiness reservationBusiness, IMapper mapper)
+        public PaymentController(IPaymentBusiness paymentBusiness, IReservationBusiness reservationBusiness, IMapper mapper)
         {
             _paymentBusiness = paymentBusiness;
             _reservationBusiness = reservationBusiness;

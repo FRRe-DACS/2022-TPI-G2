@@ -1,12 +1,8 @@
-﻿using FanturApp.DataAccess.Context;
+﻿using FanturApp.CrossCutting.Dtos;
+using FanturApp.CrossCutting.Models;
+using FanturApp.DataAccess.Context;
 using FanturApp.DataAccess.Interfaces;
-using FanturApp.Repository.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FanturApp.DataAccess.Implementations
 {
@@ -25,7 +21,7 @@ namespace FanturApp.DataAccess.Implementations
 
         public ICollection<Package> GetPackages()
         {
-            return _context.Packages.OrderBy(p => p.Id).ToList();
+            return _context.Packages.Include(p => p.PackageServices).ThenInclude(p => p.Service).ThenInclude(p => p.Category).ToList();
         }
 
         public Package GetPackage(string name)
@@ -95,5 +91,7 @@ namespace FanturApp.DataAccess.Implementations
             _context.Update(package);
             return Save();
         }
+
+      
     }
 }

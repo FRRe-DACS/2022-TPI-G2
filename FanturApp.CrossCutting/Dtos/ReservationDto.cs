@@ -1,11 +1,4 @@
-﻿using FanturApp.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FanturApp.Repository.Dtos
+﻿namespace FanturApp.CrossCutting.Dtos
 {
     public class ReservationDto
     {

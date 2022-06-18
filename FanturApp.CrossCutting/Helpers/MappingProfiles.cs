@@ -1,21 +1,18 @@
 ﻿using AutoMapper;
-using FanturApp.Repository.Dtos;
-using FanturApp.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FanturApp.CrossCutting.Dtos;
+using FanturApp.CrossCutting.Models;
 
-namespace FanturApp.Repository.Helpers
+namespace FanturApp.CrossCutting.Helpers
 {
     public class MappingProfiles : Profile
     {
         public MappingProfiles()
         {
-            CreateMap<Package, PackageDto>().ReverseMap(); 
+            CreateMap<Package, PackageDto>().ReverseMap();
+            CreateMap<Package, PackageWithServiceDto>().ReverseMap();
+            CreateMap<PackageService, PackageServiceDto>().ReverseMap();
             //CreateMap<PackageDto, Package>();
-            CreateMap<Passenger, PassengerDto>().ReverseMap(); 
+            CreateMap<Passenger, PassengerDto>().ReverseMap();
             //CreateMap<PassengerDto, Passenger>();
             CreateMap<Reservation, ReservationDto>().ReverseMap();
             //CreateMap<ReservationDto, Reservation>();

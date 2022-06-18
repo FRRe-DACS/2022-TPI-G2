@@ -1,9 +1,4 @@
-﻿using FanturApp.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FanturApp.CrossCutting.Models;
 
 namespace FanturApp.DataAccess.Interfaces
 {
@@ -15,6 +10,7 @@ namespace FanturApp.DataAccess.Interfaces
         public bool UserExists(int id);
         public ICollection<Passenger> GetPassengersByUser(int id);
         public ICollection<Reservation> GetReservationsByUser(int id);
+        public User GetUserByUsernameAndPassword (string username, string password);
 
         //post
         bool CreateUser(User user);

@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using FanturApp.Business.Interfaces;
-using FanturApp.Repository.Dtos;
-using FanturApp.Repository.Models;
-using Microsoft.AspNetCore.Http;
+using FanturApp.CrossCutting.Dtos;
+using FanturApp.CrossCutting.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FanturApp.Services.Controllers
+namespace FanturApp.Interface.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,15 +15,16 @@ namespace FanturApp.Services.Controllers
 
         public PackageController(IPackageBusiness packageBusiness, IMapper mapper)
         {
-            _packageBusiness= packageBusiness;
+            _packageBusiness = packageBusiness;
             _mapper = mapper;
         }
 
-        [HttpGet()]
-        [ProducesResponseType(200, Type=typeof(IEnumerable<Package>))]
-        public IActionResult GetPackages()
+        [HttpGet("GetPackagesWithServices")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Package>))]
+        public IActionResult GetPackagesWithServices()
         {
-            var packages = _mapper.Map<List<PackageDto>>(_packageBusiness.GetPackages());
+            //var packages = _mapper.Map<List<PackageDto>>(_packageBusiness.GetPackages());
+            var packages = _mapper.Map<List<PackageWithServiceDto>>(_packageBusiness.GetPackages());
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -32,6 +32,8 @@ namespace FanturApp.Services.Controllers
 
             return Ok(packages);
         }
+
+
 
         [HttpGet("{packageId}")]
         [ProducesResponseType(200, Type = typeof(Package))]
@@ -90,9 +92,6 @@ namespace FanturApp.Services.Controllers
 
             var packageMap = _mapper.Map<Package>(packageCreate);
 
-
-
-
             if (!_packageBusiness.CreatePackage(serviceid, packageMap))
             {
                 ModelState.AddModelError("", "Something went wrong while savin");
@@ -120,6 +119,8 @@ namespace FanturApp.Services.Controllers
 
             if (!ModelState.IsValid)
                 return BadRequest();
+
+
 
             var packageMap = _mapper.Map<Package>(updatedPackage);
 
