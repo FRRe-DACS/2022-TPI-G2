@@ -17,12 +17,15 @@ namespace FanturApp.Interface.Controllers
     {
         private IConfiguration _config;
         private IUserBusiness _userBusiness;
+    
 
         public LoginController(IConfiguration config, IUserBusiness userBusiness)
         {
             _config = config;
             _userBusiness = userBusiness;
         }
+
+     
 
         [AllowAnonymous]
         [HttpPost]

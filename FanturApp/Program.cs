@@ -11,12 +11,14 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddJsonOptions(x => 
-                   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddMvc();
@@ -59,6 +61,7 @@ builder.Services.AddScoped<IReservationBusiness, ReservationBusiness>();
 builder.Services.AddScoped<IReservationDataAccess, ReservationDataAccess>();
 builder.Services.AddScoped<IPaymentBusiness, PaymentBusiness>();
 builder.Services.AddScoped<IPaymentDataAccess, PaymentDataAccess>();
+builder.Services.AddScoped<IValidationBusiness, ValidationBusiness>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -68,6 +71,9 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 
 var app = builder.Build();
+
+//inicializamos la instancia del helper
+ValidationApi.InitializeClient();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
