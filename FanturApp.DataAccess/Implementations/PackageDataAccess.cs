@@ -58,6 +58,9 @@ namespace FanturApp.DataAccess.Implementations
 
             }
 
+            package.CreateDate = DateTime.Now;
+
+
             _context.Add(package);
 
             return Save();

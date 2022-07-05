@@ -20,7 +20,7 @@ builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.Re
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
+builder.Services.AddCors();
 builder.Services.AddMvc();
 
 //builder.Services.AddTransient<Seed>();
@@ -65,6 +65,11 @@ builder.Services.AddScoped<IValidationBusiness, ValidationBusiness>();
 builder.Services.AddScoped<ISpamBusiness, SpamBusiness>();
 builder.Services.AddScoped<ISpamDataAccess, SpamDataAccess>();
 
+
+
+
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
@@ -73,6 +78,12 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 
 var app = builder.Build();
+
+app.UseCors(
+    options => options.AllowAnyOrigin().AllowAnyMethod()
+    );
+
+
 
 //inicializamos la instancia del helper
 ValidationApi.InitializeClient();
