@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FanturApp.DataAccess.Interfaces
 {
-    internal interface ISpamDataAccess
+    public interface ISpamDataAccess
     {
+        public ICollection<string> GetSubUsersEmails();
     }
 }

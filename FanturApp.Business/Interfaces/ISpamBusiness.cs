@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FanturApp.Business.Interfaces
 {
-    internal interface ISpamBusiness
+     public interface ISpamBusiness
     {
+        public ICollection<string> GetSubUsersEmails();
     }
 }

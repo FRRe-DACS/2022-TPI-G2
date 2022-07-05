@@ -62,6 +62,8 @@ builder.Services.AddScoped<IReservationDataAccess, ReservationDataAccess>();
 builder.Services.AddScoped<IPaymentBusiness, PaymentBusiness>();
 builder.Services.AddScoped<IPaymentDataAccess, PaymentDataAccess>();
 builder.Services.AddScoped<IValidationBusiness, ValidationBusiness>();
+builder.Services.AddScoped<ISpamBusiness, SpamBusiness>();
+builder.Services.AddScoped<ISpamDataAccess, SpamDataAccess>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -10,6 +10,7 @@
         public string LastName  { get; set; }
         public string Role { get; set; }
         public string PhoneNumber { get; set; }
+        public bool? EmailSubscription { get; set; }
         public ICollection<Passenger> Passengers { get; set; }
 
     }
