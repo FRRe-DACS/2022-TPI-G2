@@ -80,7 +80,11 @@ builder.Services.AddDbContext<DataContext>(options =>
 var app = builder.Build();
 
 app.UseCors(
-    options => options.AllowAnyOrigin().AllowAnyMethod()
+    options => options
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    
     );
 
 
