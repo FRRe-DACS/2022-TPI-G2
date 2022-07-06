@@ -102,7 +102,7 @@ namespace FanturApp.Interface.Controllers
 
         }
 
-        [HttpPut("{packageId}")]
+        [HttpPatch("{packageId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
