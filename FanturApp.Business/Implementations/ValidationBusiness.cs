@@ -70,8 +70,9 @@ namespace FanturApp.Business.Implementations
                 }
                 else
                 {
-                    throw new Exception(httpResponse.ReasonPhrase);
-                }
+                //throw new Exception(httpResponse.ReasonPhrase);
+                throw new Exception("Tiempo de espera agotado para la solicitud, vuelva a intentarlo mas tarde");
+            }
             //}
 
 
