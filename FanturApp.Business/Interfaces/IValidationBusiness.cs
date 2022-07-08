@@ -1,4 +1,5 @@
 ﻿using FanturApp.CrossCutting.Dtos;
+using FanturApp.CrossCutting.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace FanturApp.Business.Interfaces
 {
     public interface IValidationBusiness
     {
-        public Task<ValidationResultDto> ValidateReservation(ValidationDto validation);
+        public Task<ValidationResultDto> ValidateReservation(ValidationDto validation, Reservation reservationid);
     }
 }

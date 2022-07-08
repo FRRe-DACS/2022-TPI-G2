@@ -80,6 +80,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         public IActionResult CreateService([FromQuery] int categoryid, [FromBody] ServiceDto serviceCreate)
@@ -115,6 +116,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpPut("{serviceId}")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -148,6 +150,7 @@ namespace FanturApp.Interface.Controllers
 
 
         [HttpDelete("{serviceId}")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]

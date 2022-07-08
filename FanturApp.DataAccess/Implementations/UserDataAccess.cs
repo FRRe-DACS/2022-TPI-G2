@@ -15,6 +15,7 @@ namespace FanturApp.DataAccess.Implementations
 
         public bool CreateUser(User user)
         {
+            user.Role = "Customer";
             _context.Add(user);
             return Save();
         }

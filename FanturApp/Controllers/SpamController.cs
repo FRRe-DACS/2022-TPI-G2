@@ -1,4 +1,5 @@
 ﻿using FanturApp.Business.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpGet()]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(ICollection<String>))]
         public IActionResult GetAllSubscribedUsersEmail()
         {

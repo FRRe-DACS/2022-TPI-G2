@@ -1,6 +1,9 @@
 ﻿using FanturApp.Business.Interfaces;
 using FanturApp.CrossCutting.Dtos;
 using FanturApp.CrossCutting.Helpers;
+using FanturApp.CrossCutting.Models;
+using FanturApp.DataAccess.Context;
+using FanturApp.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +15,17 @@ namespace FanturApp.Business.Implementations
 {
     public class ValidationBusiness : IValidationBusiness
     {
-        public async Task<ValidationResultDto> ValidateReservation(ValidationDto validation)
+        private readonly IPaymentDataAccess _paymentDataAccess;
+        private readonly IReservationDataAccess _reservationDataAccess;
+        private readonly DataContext _context;
+
+        public ValidationBusiness(IPaymentDataAccess paymentDataAccess, IReservationDataAccess reservationDataAccess, DataContext context)
+        {
+            _paymentDataAccess = paymentDataAccess;
+            _reservationDataAccess = reservationDataAccess;
+            _context = context;
+        }
+        public async Task<ValidationResultDto> ValidateReservation(ValidationDto validation, Reservation reservation)
         {
             string url = "http://localhost:8080/operacion";
 
@@ -33,6 +46,26 @@ namespace FanturApp.Business.Implementations
                     var result = await httpResponse.Content.ReadAsStringAsync();
 
                     var validationVeredict = JsonSerializer.Deserialize<ValidationResultDto>(result);
+
+                    if (validationVeredict.aprobada)
+                    {
+                        var newPayment = new Payment()
+                        {
+                        PaymentDate = DateTime.Now,
+                        PaymentMethod = _paymentDataAccess.GetPaymentMethod(1),
+                        Reservation = reservation,
+                        };
+
+                        reservation.Status = "Pagada";
+                        _context.Update(reservation);
+                    _reservationDataAccess.Save();
+
+                    _paymentDataAccess.CreatePayment(newPayment);
+
+                    }
+
+
+
                     return validationVeredict;
                 }
                 else

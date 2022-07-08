@@ -22,6 +22,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpGet()]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Reservation>))]
         public IActionResult GetReservations()
         {
@@ -51,6 +52,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpGet("By/{status}")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Reservation>))]
         public IActionResult GetReservationsByStatus(string status)
         {
@@ -63,6 +65,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpGet("{reservationId}/user")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(User))]
         [ProducesResponseType(400)]
         public IActionResult GetUserByReservation(int reservationId)
@@ -80,6 +83,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpGet("{reservationId}/packages")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Package>))]
         [ProducesResponseType(400)]
         public IActionResult GetPackagesByReservation(int reservationId)
@@ -97,6 +101,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpGet("{reservationId}/passengers")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Passenger>))]
         [ProducesResponseType(400)]
         public IActionResult GetPassengersByReservation(int reservationId)
@@ -114,6 +119,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Roles = "Customer")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         public IActionResult CreateReservation([FromQuery] int userid, [FromQuery] int packageid, [FromQuery] List<int> passengerid, [FromBody] ReservationDto reservationCreate)
@@ -141,6 +147,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpPut("{reservationId}")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]

@@ -22,6 +22,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpGet()]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Payment>))]
         public IActionResult GetPayments()
         {
@@ -35,6 +36,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpGet("{paymentId}")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(Payment))]
         [ProducesResponseType(400)]
         public IActionResult GetPayment(int paymentId)
@@ -53,6 +55,7 @@ namespace FanturApp.Interface.Controllers
 
 
         [HttpGet("{paymentId}/reservation")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(Reservation))]
         [ProducesResponseType(400)]
         public IActionResult GetReservationByPayment(int paymentId)
@@ -71,6 +74,7 @@ namespace FanturApp.Interface.Controllers
 
 
         [HttpPost]
+        //[Authorize(Roles = "Customer")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         public IActionResult CreatePayment([FromQuery] int reservationId, [FromQuery] int paymentmethodid, [FromBody] PaymentDto paymentCreate)
@@ -97,6 +101,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpPut("{paymentId}")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -126,6 +131,7 @@ namespace FanturApp.Interface.Controllers
         }
 
         [HttpDelete("{paymentId}")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
