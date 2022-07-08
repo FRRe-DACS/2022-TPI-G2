@@ -9,6 +9,7 @@ namespace FanturApp.DataAccess.Interfaces
         public bool ReservationExists(int id);
         public ICollection<Package> GetPackagesByReservation(int id);
         public ICollection<Passenger> GetPassengersByReservation(int id);
+        public Reservation GetLastReservation();
         public User GetUserByReservation(int id);
         public ICollection<Reservation> GetReservationsByStatus(string status);
 

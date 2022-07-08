@@ -142,7 +142,11 @@ namespace FanturApp.Interface.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return Ok("Reservation successfully created");
+            var createdReservation = _reservationBusiness.GetLastReservation();
+
+            var createdReservationMapped = _mapper.Map<ReservationDto>(createdReservation);
+
+            return Ok(createdReservationMapped);
 
         }
 

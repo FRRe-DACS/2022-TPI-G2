@@ -18,6 +18,11 @@ namespace FanturApp.Business.Implementations
             return _reservationDataAccess.CreateReservation(passengerid, packageid, reservation);
         }
 
+        public Reservation GetLastReservation()
+        {
+            return _reservationDataAccess.GetLastReservation();
+        }
+
         public ICollection<Package> GetPackagesByReservation(int id)
         {
             return _reservationDataAccess.GetPackagesByReservation(id);

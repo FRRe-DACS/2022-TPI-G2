@@ -10,6 +10,7 @@ namespace FanturApp.Business.Interfaces
         public ICollection<Package> GetPackagesByReservation(int id);
         public ICollection<Passenger> GetPassengersByReservation(int id);
         public User GetUserByReservation(int id);
+        public Reservation GetLastReservation();
         public ICollection<Reservation> GetReservationsByStatus(string status);
         //post
         bool CreateReservation(List<int> passengerid, int packageid, Reservation reservation);

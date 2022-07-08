@@ -153,5 +153,10 @@ namespace FanturApp.DataAccess.Implementations
             _context.Update(reservation);
             return Save();
         }
+
+        public Reservation GetLastReservation()
+        {
+            return _context.Reservations.OrderByDescending(s => s.Id).FirstOrDefault();
+        }
     }
 }
