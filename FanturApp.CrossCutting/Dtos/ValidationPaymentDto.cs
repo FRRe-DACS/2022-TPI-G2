@@ -10,7 +10,8 @@ namespace FanturApp.CrossCutting.Dtos
     {
         public int reservationId { get; set; }
         public long cuit { get; set; }
-        public string cardNro { get; set; }
+        //public string cardNro { get; set; }
+        //public string cardSecurityNro { get; set; }
 
     }
 }
