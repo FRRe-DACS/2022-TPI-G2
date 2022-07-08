@@ -35,8 +35,14 @@ namespace FanturApp.Interface.Controllers
 
             if (user != null)
             {
-                var token = Generate(user);
-                return Ok(token);
+                var logeduserinfo = new LogedUserInfoDto();
+                logeduserinfo.Token = Generate(user);
+                logeduserinfo.FirstName = user.FirstName;
+                logeduserinfo.LastName = user.LastName;
+                logeduserinfo.Email = user.Email;
+                logeduserinfo.Role = user.Role;
+                logeduserinfo.UserId = user.Id;
+                return Ok(logeduserinfo);
             }
 
             return NotFound("User not found");
