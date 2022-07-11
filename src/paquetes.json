@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": "guido",
+        "description": "stangaferro",
+        "packagePrice": 23,
+        "createDate": null,
+        "validDate": "2022-07-21T00:00:00",
+        "packageServices": [
+            {
+                "service": {
+                    "id": 1,
+                    "description": "vuelo",
+                    "servicePrice": 200,
+                    "category": {
+                        "id": 1,
+                        "name": "Vuelo"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "adas",
+        "description": "asdada",
+        "packagePrice": 4,
+        "createDate": null,
+        "validDate": "2022-07-21T00:00:00",
+        "packageServices": [
+            {
+                "service": {
+                    "id": 1,
+                    "description": "vuelo",
+                    "servicePrice": 200,
+                    "category": {
+                        "id": 1,
+                        "name": "Vuelo"
+                    }
+                }
+            }
+        ]
+    }
+]
